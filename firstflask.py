@@ -43,6 +43,8 @@ def research_page():
 def contact_page():
     if request.method == "POST":
         user_email = request.form.get("email")
+        with open("email.txt", "a") as myfile:
+            myfile.write(f'{user_email} \n')
         return render_template_string("""
         <!DOCTYPE html>
         <html lang="en">
