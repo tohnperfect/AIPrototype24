@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, render_template
+import random
 
 app = Flask(__name__)
 
@@ -11,6 +12,32 @@ def helloSTAT():
     return "Hello, STAT KKU!"
 
 (__name__)
+
+@app.route("/research")
+def research_page():
+    faculty_research = {
+    "Dr. Alice Smith": [
+        "Statistical Modeling of Climate Change Impacts",
+        "Advanced Methods in Time Series Analysis",
+        "Machine Learning Applications in Biostatistics",
+    ],
+    "Dr. Bob Johnson": [
+        "Bayesian Inference in Social Sciences",
+        "Quantitative Analysis of Economic Trends",
+        "Development of Robust Statistical Software",
+    ],
+    "Dr. Carol Davis": [
+        "Optimization Techniques in Big Data Analytics",
+        "Statistical Approaches to Epidemiology",
+        "Survey Data Analysis for Policy Decisions",
+    ],
+    }
+
+    faculty, research_projects = random.choice(list(faculty_research.items()))
+    
+    return render_template("research.html", faculty=faculty, research_projects=research_projects)
+
+
 
 @app.route("/contact")
 def contact_page():
@@ -136,7 +163,7 @@ def helloSTAThtml():
         <nav>
             <a href="#about">About Us</a>
             <a href="#programs">Programs</a>
-            <a href="#research">Research</a>
+            <a href="/research">Research</a>
             <a href="/contact">Contact</a>
         </nav>
         <main>
