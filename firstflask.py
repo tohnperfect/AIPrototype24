@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, render_template_string
 import random
+import json
 
 app = Flask(__name__)
 
@@ -276,5 +277,17 @@ def helloSTAThtml():
     </html>
     """
 
+##api
+@app.route('/simpleAPI',methods=['POST'])
+def web_service_API_simple():
+
+    payload = request.data.decode("utf-8")
+    inmessage = json.loads(payload)
+
+    print(inmessage)
+    
+    json_data = json.dumps({'y': 'received!'})
+    return json_data
+
 if __name__ == "__main__":   # run code 
-    app.run()
+    app.run(host='0.0.0.0',debug=True,port=5001)
